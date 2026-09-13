@@ -1,0 +1,455 @@
+.login-scene {
+  --ink: #1a2332;
+  --muted: #5c6b7a;
+  --accent: #e85d04;
+  --accent-deep: #c2410c;
+  --glass: rgba(255, 252, 248, 0.82);
+  --line: rgba(26, 35, 50, 0.1);
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow: hidden;
+  font-family: "Outfit", system-ui, sans-serif;
+  color: var(--ink);
+}
+
+.login-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 55% at 70% 18%, rgba(255, 196, 86, 0.55), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(14, 116, 144, 0.28), transparent 50%),
+    linear-gradient(165deg, #7dd3fc 0%, #38bdf8 28%, #fbbf24 62%, #ea580c 100%);
+}
+
+.login-sun {
+  position: absolute;
+  top: 8%;
+  right: 12%;
+  width: min(42vw, 280px);
+  aspect-ratio: 1;
+  animation: sun-float 7s ease-in-out infinite;
+}
+
+.login-sun-core {
+  position: absolute;
+  inset: 28%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff7ed, #fbbf24 45%, #ea580c 100%);
+  box-shadow:
+    0 0 40px 12px rgba(251, 191, 36, 0.55),
+    0 0 90px 30px rgba(234, 88, 12, 0.35);
+  animation: sun-pulse 3.5s ease-in-out infinite;
+}
+
+.login-sun-ring {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.login-sun-ring--a {
+  animation: ring-expand 4s ease-out infinite;
+}
+
+.login-sun-ring--b {
+  inset: 0;
+  animation: ring-expand 4s ease-out infinite 1.4s;
+}
+
+.login-sun-rays {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.18) 8deg,
+    transparent 16deg,
+    transparent 45deg,
+    rgba(255, 247, 237, 0.22) 52deg,
+    transparent 60deg,
+    transparent 90deg,
+    rgba(255, 255, 255, 0.14) 98deg,
+    transparent 106deg,
+    transparent 180deg,
+    rgba(255, 247, 237, 0.18) 188deg,
+    transparent 196deg,
+    transparent 270deg,
+    rgba(255, 255, 255, 0.12) 278deg,
+    transparent 286deg
+  );
+  animation: rays-spin 28s linear infinite;
+  opacity: 0.7;
+}
+
+.login-haze {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 28%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  filter: blur(18px);
+  opacity: 0.45;
+  animation: haze-drift 9s ease-in-out infinite;
+}
+
+.login-haze--1 {
+  top: 22%;
+  animation-duration: 10s;
+}
+
+.login-haze--2 {
+  top: 38%;
+  opacity: 0.3;
+  animation-duration: 13s;
+  animation-delay: -3s;
+}
+
+.login-haze--3 {
+  top: 54%;
+  opacity: 0.22;
+  animation-duration: 16s;
+  animation-delay: -6s;
+}
+
+.login-waves {
+  position: absolute;
+  left: -15%;
+  bottom: 0;
+  width: 130%;
+  height: min(38vh, 320px);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.login-wave {
+  fill: rgba(255, 255, 255, 0.18);
+  animation: wave-shift 8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.login-wave--2 {
+  fill: rgba(15, 23, 42, 0.12);
+  animation-duration: 11s;
+  animation-delay: -2s;
+}
+
+.login-panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 420px);
+  padding: 2.25rem 2rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 1.5rem;
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 24px 48px rgba(15, 23, 42, 0.18);
+  animation: panel-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.login-panel--shake {
+  animation: panel-shake 0.45s ease;
+}
+
+.login-panel--success {
+  transform: scale(0.98);
+  opacity: 0.88;
+}
+
+.login-brand {
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+.login-title {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2.2rem, 6vw, 2.75rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  animation: fade-up 0.65s ease both;
+}
+
+.login-subtitle {
+  margin: 0.15rem 0 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.35rem, 4vw, 1.65rem);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--accent-deep);
+  animation: fade-up 0.65s ease 0.14s both;
+}
+
+.login-tagline {
+  margin: 0.85rem 0 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  animation: fade-up 0.65s ease 0.2s both;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-field {
+  animation: fade-up 0.65s ease both;
+}
+
+.login-field--delay-1 {
+  animation-delay: 0.28s;
+}
+
+.login-field--delay-2 {
+  animation-delay: 0.36s;
+}
+
+.login-field label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.login-field input {
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.98rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.login-field input::placeholder {
+  color: #94a3b8;
+}
+
+.login-field input:focus {
+  border-color: rgba(232, 93, 4, 0.55);
+  box-shadow: 0 0 0 4px rgba(232, 93, 4, 0.15);
+  transform: translateY(-1px);
+}
+
+.login-error {
+  padding: 0.7rem 0.85rem;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 0.75rem;
+  background: rgba(254, 226, 226, 0.9);
+  color: #b91c1c;
+  font-size: 0.88rem;
+  animation: fade-up 0.3s ease both;
+}
+
+.login-submit {
+  position: relative;
+  overflow: hidden;
+  margin-top: 0.35rem;
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: none;
+  border-radius: 0.95rem;
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 55%, #9a3412 100%);
+  color: #fff7ed;
+  font: inherit;
+  font-size: 1.02rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(194, 65, 12, 0.35);
+  animation: fade-up 0.65s ease 0.44s both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.login-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(194, 65, 12, 0.42);
+  filter: brightness(1.05);
+}
+
+.login-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-submit:disabled {
+  cursor: wait;
+  opacity: 0.85;
+}
+
+.login-submit-label {
+  position: relative;
+  z-index: 1;
+}
+
+.login-submit-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.28) 45%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  animation: shine-sweep 3.8s ease-in-out infinite;
+}
+
+@keyframes panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes panel-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes sun-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(12px);
+  }
+}
+
+@keyframes sun-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.04);
+    filter: brightness(1.08);
+  }
+}
+
+@keyframes ring-expand {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+@keyframes rays-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes haze-drift {
+  0%,
+  100% {
+    transform: translateX(-6%);
+  }
+  50% {
+    transform: translateX(6%);
+  }
+}
+
+@keyframes wave-shift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-2%);
+  }
+}
+
+@keyframes shine-sweep {
+  0%,
+  55% {
+    transform: translateX(-120%);
+  }
+  75%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-panel {
+    padding: 1.75rem 1.35rem 1.5rem;
+  }
+
+  .login-sun {
+    top: 4%;
+    right: 4%;
+    width: 46vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-scene *,
+  .login-scene *::before,
+  .login-scene *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

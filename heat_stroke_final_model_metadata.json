@@ -1,0 +1,37 @@
+{
+  "feature_pool": [
+    "Diastolic BP",
+    "Heat Index (HI)",
+    "Environmental temperature (C)",
+    "Age",
+    "Nationality",
+    "Relative Humidity",
+    "Hot/dry skin",
+    "Sweating",
+    "Time of year (month)",
+    "Cardiovascular disease history",
+    "BMI",
+    "Daily Ingested Water (L)",
+    "Heart / Pulse rate (b/min)",
+    "Sex",
+    "Time of day"
+  ],
+  "winning_combo": null,
+  "member_models": [
+    "GradientBoosting"
+  ],
+  "member_feature_sets": {
+    "GradientBoosting": "RF_Gini_top9"
+  },
+  "member_categories": {
+    "GradientBoosting": "Boosting"
+  },
+  "target_encoding": {
+    "0": "No heat stroke",
+    "1": "Heat stroke"
+  },
+  "selected_family": "Boosting",
+  "cv_f1_macro": 0.9931770492390211,
+  "test_f1_macro": 1.0,
+  "cv_test_gap": -0.006822950760978941
+}

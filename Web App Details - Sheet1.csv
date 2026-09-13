@@ -1,0 +1,53 @@
+Feature,Input method,Validation / range,Input,For the code
+Diastolic BP,Numeric field,40–130 mmHg; reject 0/blank,40-130mmHg,
+Heat Index,Numeric field (or computed),,0-100 degree celcius,Convert to F for the model
+Environmental temperature,Numeric field / slider,10–50 °C,0-60 degree celcius,Use as it is
+Age,Numeric field,,12-80 age,
+Nationality,Dropdown,Binary — encoding meaning unconfirmed (see flag),Yes / no field,"yes -1, NO- 0"
+Relative Humidity,Numeric field / slider,0–100% in UI (see scale flag below),0-100 input,"Divide by 100, aqnd get for the model"
+Hot/dry skin,Toggle / checkbox,Yes/No,Yes/No,1 and 0
+Sweating,Toggle / checkbox,Yes/No,Yes/No,1 and 0
+Time of year (month),Month dropdown (Jan–Dec),1–12 (see encoding flag),date input,"convert as a fraction , eg. apr 10 = 4 + (10/30) = 4.33"
+Cardiovascular disease history,Toggle / checkbox,Yes/No,Yes/No,1 and 0
+BMI,Numeric,15–45; model trained mostly on 18.5–24,directly get BMI 15-45 with fractional values allowed,
+Daily Ingested Water (L),Numeric stepper,"0.5–15 L, 1 decimal",0.000-15.000L (ml take as fraction),
+Heart/Pulse rate,Numeric field,40–220 bpm,40-220bpm,
+Sex,Dropdown (Male/Female),Binary — confirm which value maps to which,"male - 1, female - 0",
+Time of day,Time picker (HH:MM),Convert to decimal hour before feeding model,9am t0 5pm,get as a fractional val
+,,,,
+,,,,
+,,,,
+,,,,
+"For your friend building the backend/API, here's what the model should output:",,,,
+,,,,
+"Raw model output: predict_proba() gives a probability between 0 and 1 (chance of heat stroke) — not just a 0/1 label. Always use this, not the plain .predict().",,,,
+,,,,
+Suggested API response shape:,,,,
+,,,,
+json,,,,
+{,,,,
+"""risk_score"": 0.72,",,,,
+"""risk_percentage"": ""72%"",",,,,
+"""risk_level"": ""High"",",,,,
+"""prediction"": 1",,,,
+},,,,
+,,,,
+Risk level banding (turn the raw probability into something a normal user understands):,,,,
+,,,,
+0–30% → Low,,,,
+30–60% → Moderate,,,,
+60–100% → High,,,,
+,,,,
+"These are reasonable starting thresholds — they can be tuned later using the test set if you want them more precise, but for now they're fine to ship with.",,,,
+,,,,
+"For the UI, show:",,,,
+,,,,
+The risk level as the headline (color-coded: green/yellow/red works well),,,,
+The percentage underneath for people who want the number,,,,
+"A short message per level (e.g., ""Low risk — stay hydrated"" / ""High risk — seek shade and water immediately"")",,,,
+,,,,
+Tell your friend explicitly:,,,,
+,,,,
+"Input values must be sent in the exact feature_order from the metadata JSON — order matters, not just field names",,,,
+"Categorical/binary fields (Sex, Nationality, Sweating, etc.) must be encoded exactly as 0/1 the same way training data was, not as strings",,,,
+"The backend should load the model once at startup, not per-request (joblib load is slow-ish)",,,,
